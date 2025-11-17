@@ -3,11 +3,11 @@ kind: StatefulSet
 metadata:
   name: mysql
 spec:
+  serviceName: "mysql"
+  replicas: 1
   selector:
     matchLabels:
       app: mysql
-  serviceName: "mysql"
-  replicas: 1
   template:
     metadata:
       labels:
@@ -22,13 +22,14 @@ spec:
         - name: MYSQL_DATABASE
           value: "django"
         volumeMounts:
-        - name: mysql-pvc
+        - name: data
           mountPath: /var/lib/mysql
   volumeClaimTemplates:
   - metadata:
-      name: mysql-pvc
+      name: data     # ★★★ 절대 변경 금지!
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
           storage: 1Gi
+
