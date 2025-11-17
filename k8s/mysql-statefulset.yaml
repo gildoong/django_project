@@ -22,11 +22,11 @@ spec:
         - name: MYSQL_DATABASE
           value: "django"
         volumeMounts:
-        - name: mysql-storage
+        - name: mysql-pvc
           mountPath: /var/lib/mysql
   volumeClaimTemplates:
   - metadata:
-      name: mysql-storage
+      name: mysql-pvc
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
