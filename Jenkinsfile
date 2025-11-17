@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        REGISTRY = "galdoongd/django_app"  // Docker Hub repo
+        REGISTRY = "galdoongd/django_app"
     }
 
     stages {
@@ -17,7 +17,7 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'dockerhub-token', variable: 'TOKEN')]) {
                     sh """
-                    echo $TOKEN | docker login -u galdoongd --password-stdin
+                    echo "${TOKEN}" | docker login -u galdoongd --password-stdin
                     """
                 }
             }
@@ -33,14 +33,12 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'dockerhub-token', variable: 'TOKEN')]) {
                     sh """
-                    echo $TOKEN | docker login -u galdoongd --password-stdin
+                    echo "${TOKEN}" | docker login -u galdoongd --password-stdin
                     docker push ${REGISTRY}:latest
                     """
                 }
             }
         }
-
-        // 배포는 ArgoCD가 담당한다
     }
 }
 
