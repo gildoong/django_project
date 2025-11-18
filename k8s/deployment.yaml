@@ -3,8 +3,7 @@ kind: Deployment
 metadata:
   name: django-app
   annotations:
-    argocd-image-updater.argoproj.io/django.image: galdoongd/django_app
-    argocd-image-updater.argoproj.io/django.update-strategy: latest
+    argocd-image-updater.argoproj.io/image: galdoongd/django_app
 spec:
   replicas: 2
   selector:
@@ -14,13 +13,8 @@ spec:
     metadata:
       labels:
         app: django-app
-      annotations:
-        argocd-image-updater.argoproj.io/django.image: galdoongd/django_app
-        argocd-image-updater.argoproj.io/django.update-strategy: latest
     spec:
       containers:
-        - name: django
-          image: galdoongd/django_app:b3769dc
-          ports:
-            - containerPort: 8000
+      - name: django
+        image: galdoongd/django_app:19e2cf0
 
