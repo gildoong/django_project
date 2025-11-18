@@ -3,14 +3,26 @@ kind: Ingress
 metadata:
   name: django-ing
 spec:
+  ingressClassName: nginx
   rules:
   - host: django.example.com
     http:
       paths:
+      # static 파일도 Django로 보내야 Whitenoise가 제공 가능
+      - path: /static
+        pathType: Prefix
+        backend:
+          service:
+            name: django-svc
+            port:
+              number: 8000   # ★ 중요: Gunicorn 포트
+
+      # 나머지 모든 요청도 Django로
       - path: /
         pathType: Prefix
         backend:
           service:
             name: django-svc
             port:
-              number: 80
+              number: 8000   # ★ 중요
+
