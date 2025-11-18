@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: django
-        image: galdoongd/django_app:435a1b1
+        image: galdoongd/django_app:f7fa4f5
         ports:
         - containerPort: 8000
