@@ -18,7 +18,8 @@ RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
-
+# collectstatic 실행
+RUN python manage.py collectstatic --noinput
 EXPOSE 8000
 
 CMD ["gunicorn", "config.wsgi:application", "-b", "0.0.0.0:8000", "-w", "2"]
